@@ -1,37 +1,72 @@
 #pragma once
 
+#define MIN_DIFF 0.0000000001
+
 #include "size.hh"
 #include <iostream>
+#include <iomanip>
 
 class Vector {
 
 private:
-
     double size[SIZE];     //Tablica wektora
 
 public:
-
     Vector();
-
     Vector(double [SIZE]);
 
     Vector operator + (const Vector &v);
-
     Vector operator - (const Vector &v);
-
     Vector operator * (const double &tmp);
-
     Vector operator / (const double &tmp);
 
     const double &operator [] (int index) const;
-
     double &operator [] (int index);
 
+    bool operator == (const Vector &wek) const;
+    bool operator != (const Vector &wek) const;
 };
-
 std::ostream &operator << (std::ostream &out, Vector const &tmp);
-
 std::istream &operator >> (std::istream &in, Vector &tmp);
+
+/******************************************************************************
+ |  Przeciazenie operatora porowanania ==.                                                 |
+ |  Argumenty:                                                                |
+ |      Vektor i wskaźnik na wektor.                                                      |
+ |  Zwraca:                                                                   |
+ |      Wartość True lub False.                                       |
+ */
+bool operator == (const Vector &wek) const
+{
+    if(abs(size[0]-wek[0])<=MIN_DIFF && abs(size[1]-wek[1])<=MIN_DIFF)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/******************************************************************************
+ |  Przeciazenie operatora porowanania !=.                                                 |
+ |  Argumenty:                                                                |
+ |      Vektor i wskaźnik na wektor.                                                      |
+ |  Zwraca:                                                                   |
+ |      Wartość True lub False.                                       |
+ */
+bool operator != (const Vector &wek) const
+{
+    if(Vector == wek)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 
 /******************************************************************************
  |  Konstruktor klasy Vector.                                                 |
@@ -107,7 +142,6 @@ Vector Vector::operator - (const Vector &v) {
  |      Iloczyn dwoch skladnikow przekazanych jako wskaznik                   |
  |      na parametr.                                                          |
  */
-
 Vector Vector::operator * (const double &tmp) {
     Vector result;
     for (int i = 0; i < SIZE; ++i) {
@@ -126,14 +160,19 @@ Vector Vector::operator * (const double &tmp) {
  |      Iloraz dwoch skladnikow przekazanych jako wskaznik                    |
  |      na parametr.                                                          |
  */
-
 Vector Vector::operator / (const double &tmp) {
     Vector result;
-
-    for (int i = 0; i < SIZE; ++i) {
-        result[i] = size[i] / tmp;
+    if(tmp==0)
+    {
+        std::cerr<<"Blad! Nie mozna dzielic przez zero!"<<endl;
     }
-
+    else
+    {
+        for (int i = 0; i < SIZE; ++i) 
+        {
+            result[i] = size[i] / tmp;
+        }
+    }
     return result;
 }
 
