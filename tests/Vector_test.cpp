@@ -26,7 +26,7 @@ TEST_CASE("Test 2. Przeciazenie operatora porownania '==' ")
 {
     Vector int a(1.0000000001,2.0000000001),b;
     CHECK(a==b(1,2));
-    CHECK_FALSE(a==b(1.00000003,1.99999999));
+    CHECK_FALSE(a==b(1.00000001,1.99999999));
 }
 
 TEST_CASE("Test 1. Przeciazenie operatora porownania '!=' ")

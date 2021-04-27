@@ -3,17 +3,18 @@
 
 bool Prostokat::Obrot(double &kat))
 {
-    Obrot = this->Obrot(kat, 1);
-    return Obrot;
+    double obrot;
+    obrot = this->Obrot(kat, 1);
+    return obrot;
 }
 
 bool Prostokat::Obrot(double &kat, int krotnosc)  //krotnosc > ile razy powtorzyc obrot o dany kat
 {
     Matrix macierz_obrot; //macierz obrotu
-    macierz_obrot.obrot_o_kat(kat);
+    macierz_obrot.MacierzObrotu(kat);
     for(int i=0; i<krotnosc; i++)
     {
-        for(int j=0; j<; j++)
+        for(int j=0; j<WIERZCHOLKI; j++)
         {
             wierzcholek[j]=macierz_obrot*wierzcholek[j];
         }
@@ -59,12 +60,13 @@ bool Prostokat::Zapisz_do_pliku(const std::string &NazwaPliku) const
     }
 }
 
+//Vector& operator [] (int index);
 
-bool Prostokat::operator==(const Prostokat &prosty) const
+bool Prostokat::operator == (const Prostokat &prosty) const
 {
     for(int i=0; i<WIERZCHOLKI; i++)
     {
-        if(this->wierzcholek[i] != prosty.wierzcholek[x])
+        if(this->wierzcholek[i] != prosty.wierzcholek[i])
         {
             return false;
         }
@@ -73,7 +75,21 @@ bool Prostokat::operator==(const Prostokat &prosty) const
             return true;
         }
     }
-    return true;
+}
+
+bool Prostokat::operator != (const Prostokat &prosty) const
+{
+    for(int i=0; i<WIERZCHOLKI; i++)
+    {
+        if(this->wierzcholek[i] == prosty.wierzcholek[i])
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
 
 std::ostream &operator << (std::ostream &strm, const Prostokat &prosty)

@@ -4,6 +4,7 @@
 #include "vector.hh"
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 class Matrix {
 
@@ -13,12 +14,15 @@ private:
 public:
     Matrix(double [SIZE][SIZE]);            // Konstruktor klasy
     Matrix();                               // Konstruktor klasy
-
+    //Metody
+    void MacierzObrotu(double stopnie);      // tworzy macierz obrotu o kat w stopniach
+    //Przeciazenia operatorow
     Vector operator * (Vector tmp);           // Operator mnożenia przez wektor
     Matrix operator + (Matrix tmp);
-
     double  &operator () (unsigned int row, unsigned int column);
     const double &operator () (unsigned int row, unsigned int column) const;
+    bool operator == (const Matrix &matrix) const;
+    bool operator != (const Matrix &matrix) const;
 };
 
 std::istream &operator>>(std::istream &in, Matrix &mat);
@@ -42,9 +46,9 @@ Matrix::Matrix() {
 
 
 /******************************************************************************
- |  Konstruktor parametryczny klasy Matrix.                                              |
+ |  Konstruktor parametryczny klasy Matrix.                                   |
  |  Argumenty:                                                                |
- |      tmp - dwuwymiarowa tablica z elementami typu double.                               |
+ |      tmp - dwuwymiarowa tablica z elementami typu double.                  |
  |  Zwraca:                                                                   |
  |      Macierz wypelniona wartosciami podanymi w argumencie.                 |
  */
@@ -56,6 +60,22 @@ Matrix::Matrix(double tmp[SIZE][SIZE]) {
     }
 }
 
+/******************************************************************************
+ |  Realizuje metode obrotu macierzy o kat.                                   |
+ |  Argumenty:                                                                |
+ |      value - wartosci poszczegolnych pol macierzy                          |
+ |  Zwraca:                                                                   |
+ |      Macierz obrotu                    |
+ */
+void Matrix::MacierzObrotu(double stopnie)
+{
+    double radiany = stopnie*M_PI/180;           //zamienia stopnie na radiany
+    //macierz obrotu
+    value[0][0]= cos(radiany);
+    value[0][1]= sin(radiany);
+    value[1][0]=-sin(radiany);
+    value[1][1]= cos(radiany);                   
+}
 
 /******************************************************************************
  |  Realizuje mnozenie macierzy przez wektor.                                 |
@@ -143,6 +163,50 @@ Matrix Matrix::operator + (Matrix tmp) {
 }
 
 /******************************************************************************
+ |  Przeciazenie operatora porowanania ==.                                    |
+ |  Argumenty:                                                                |
+ |      Vektor i wskaźnik na wektor.                                          |
+ |  Zwraca:                                                                   |
+ |      Wartość True lub False.                                               |
+ */
+bool operator == (const Matrix &matrix) const
+{
+    for(int i=0; i<SIZE; i++)
+    {
+        for(int j=0; j<SIZE; j++)
+        {
+            if(this->value[i][j] == matrix.value[i][j])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}
+
+/******************************************************************************
+ |  Przeciazenie operatora porowanania !=.                                    |
+ |  Argumenty:                                                                |
+ |      Vektor i wskaźnik na wektor.                                          |
+ |  Zwraca:                                                                   |
+ |      Wartość True lub False.                                               |
+ */
+bool operator != (const Matrix &matrix) const
+{
+    if(Matrix == matrix)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+/******************************************************************************
  |  Przeciazenie operatora >>                                                 |
  |  Argumenty:                                                                |
  |      in - strumien wyjsciowy,                                              |
@@ -167,7 +231,7 @@ std::istream &operator>>(std::istream &in, Matrix &mat) {
 std::ostream &operator<<(std::ostream &out, const Matrix &mat) {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            out << "| " << mat(i, j) << " | "; //warto ustalic szerokosc wyswietlania dokladnosci liczb
+            out << "| " << std::setw(15) << std::fixed << std::setprecision(10) << mat(i, j) << " | "; //wyswietlanie macierzy
         }
         std::cout << std::endl;
     }

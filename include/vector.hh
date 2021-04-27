@@ -30,11 +30,11 @@ std::ostream &operator << (std::ostream &out, Vector const &tmp);
 std::istream &operator >> (std::istream &in, Vector &tmp);
 
 /******************************************************************************
- |  Przeciazenie operatora porowanania ==.                                                 |
+ |  Przeciazenie operatora porowanania ==.                                    |
  |  Argumenty:                                                                |
- |      Vektor i wskaźnik na wektor.                                                      |
+ |      Vektor i wskaźnik na wektor.                                          |
  |  Zwraca:                                                                   |
- |      Wartość True lub False.                                       |
+ |      Wartość True lub False.                                               |
  */
 bool operator == (const Vector &wek) const
 {
@@ -49,11 +49,11 @@ bool operator == (const Vector &wek) const
 }
 
 /******************************************************************************
- |  Przeciazenie operatora porowanania !=.                                                 |
+ |  Przeciazenie operatora porowanania !=.                                    |
  |  Argumenty:                                                                |
- |      Vektor i wskaźnik na wektor.                                                      |
+ |      Vektor i wskaźnik na wektor.                                          |
  |  Zwraca:                                                                   |
- |      Wartość True lub False.                                       |
+ |      Wartość True lub False.                                               |
  */
 bool operator != (const Vector &wek) const
 {
