@@ -5,86 +5,163 @@
 
 TEST_CASE("Test konstruktora bezparametrycznego")
 {
-    Vector double a,b;
-    CHECK(a, b(0,0));
+    Vector a;
+    CHECK(a[0]==1);
+    CHECK(a[1]==1);
 }
 
 TEST_CASE("Test konstruktora z parametrem")
 {
-    Vector int a(1, 1),b;
-    CHECK(a, b(1,1));
+    Vector a;
+    double wek[2]={1,1};
+    a=Vector(wek);
+    CHECK(a[0]==1);
+    CHECK(a[1]==1);
 }
 
 TEST_CASE("Test 1. Przeciazenie operatora porownania '==' ")
 {
-    Vector int a(1,1), b;
-    CHECK(a==b(1,1));
-    CHECK_FALSE(a==b(2,1));
+    Vector a,b,c;
+    double wek1[2]={1,1},wek2[2]={1,1},wek3[2]={1,0};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a==b);
+    CHECK_FALSE(a==c);
 }
 
 TEST_CASE("Test 2. Przeciazenie operatora porownania '==' ")
 {
-    Vector int a(1.0000000001,2.0000000001),b;
-    CHECK(a==b(1,2));
-    CHECK_FALSE(a==b(1.00000001,1.99999999));
+    Vector a,b,c;
+    double wek1[2]={1.00000000001,1.00000000001},wek2[2]={1,1},wek3[2]={1,0};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a==b);
+    CHECK_FALSE(a==c);
 }
 
 TEST_CASE("Test 1. Przeciazenie operatora porownania '!=' ")
 {
-    Vector int a(1,1), b;
-    CHECK_FALSE(a==b(1,1));
-    CHECK(a==b(2,1));
+    Vector a,b,c;
+    double wek1[2]={1,1},wek2[2]={1,1},wek3[2]={1,0};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a==c);
+    CHECK_FALSE(a==b);
 }
 
 TEST_CASE("Test 2. Przeciazenie operatora porownania '!=' ")
 {
-    Vector int a(1.0000000001,2.0000000001),b;
-    CHECK_FALSE(a==b(1,2));
-    CHECK(a==b(1.00000003,1.99999999));
+    Vector a,b,c;
+    double wek1[2]={1.00000000001,1.00000000001},wek2[2]={1,1},wek3[2]={1,0};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a==c);
+    CHECK_FALSE(a==b);
 }
 
-TEST_CASE("Test: Przeciazenie operatora dodawania")
+TEST_CASE("Test 1: Przeciazenie operatora dodawania")
 {
-    Vector int a(1,1),b(1,2),c;
-    CHECK(a+b==c(2,3));
-    CHECK_FALSE(a+b==c(2,2));
-
-    Vector double a(1.0000000001,2.0000000001),b(1,2),c;
-    CHECK(a+b==c(2,4));
-    CHECK_FALSE(a+b==c(),-0,99999999));
+    Vector a,b,c,d;
+    double wek1[2]={4,2},wek2[2]={2,2},wek3[2]={6,4},wek4[2]={4,4};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    d=Vector(wek4);
+    CHECK(a+b==c);
+    CHECK_FALSE(a+b==d);
 }
 
-TEST_CASE("Test: Przeciazenie operatora odejmowania")
+TEST_CASE("Test 2: Przeciazenie operatora dodawania - dokladnosc")
 {
-    Vector int a(1,1),b(1,2),c;
-    CHECK(a-b==c(0,-1));
-    CHECK_FALSE(a-b==c(0,0));
-
-    Vector double a(1.0000000001,2.0000000001),b(1,2),c;
-    CHECK(a-b==c(0,-1));
-    CHECK_FALSE(a-b==c(0.999999999,-0,99999999));
+    Vector a,b,c,d;
+    double wek1[2]={4.0000000001,2.0000000001},wek2[2]={2,2},wek3[2]={6.0000000001,4.0000000001},wek4[2]={4,0};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    d=Vector(wek4);
+    CHECK(a+b==c);
+    CHECK_FALSE(a+b==d);
 }
 
-TEST_CASE("Test: Przeciazenie operatora mnozenia")
+TEST_CASE("Test 1: Przeciazenie operatora odejmowania")
 {
-    Vector int a(1,1),b(2,0),c;
-    CHECK(a*b==c(2,2));
-    CHECK_FALSE(a*b==c(2,0));
-
-    Vector double a(1.0000000001,1.0000000001),b(2,0),c;
-    CHECK(a*b==c(2,2));
-    CHECK_FALSE(a*b==c(2.00000001,4.00000001));
+    Vector a,b,c,d;
+    double wek1[2]={4,2},wek2[2]={2,2},wek3[2]={2,0},wek4[2]={4,4};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    d=Vector(wek4);
+    CHECK(a-b==c);
+    CHECK_FALSE(a-b==d);
 }
 
-TEST_CASE("Test: Przeciazenie operatora dzielenia")
+TEST_CASE("Test 2: Przeciazenie operatora odejmowania - dokladnosc")
 {
-    Vector int a(4,2),b(2,0),c;
-    CHECK(a/b==c(2,1));
-    CHECK_FALSE(a/b==c(2,0));
+    Vector a,b,c,d;
+    double wek1[2]={4.0000000001,2.0000000001},wek2[2]={2,2},wek3[2]={2.0000000001,0.0000000001},wek4[2]={4,0};
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    d=Vector(wek4);
+    CHECK(a-b==c);
+    CHECK_FALSE(a-b==d);
+}
 
-    Vector double a(4.0000000001,2.0000000001),b(2,0),c;
-    CHECK(a/b==c(2,1));
-    CHECK_FALSE(a/b==c(2.00000001,0.000000001));
+
+TEST_CASE("Test 1: Przeciazenie operatora mnozenia vector")
+{
+    Vector a,b,c;
+    double wek1[2]={4,2},wek2[2]={8,4},wek3[2]={8,0},d=2;
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a*d==b);
+    CHECK_FALSE(a*d==c);
+}
+
+TEST_CASE("Test 2: Przeciazenie operatora mnozenia vector")
+{
+    Vector a,b,c;
+    double wek1[2]={0.33333333333,0.33333333333},wek2[2]={1,1},wek3[2]={0.9999999999,0.9999999999},d=3;
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a*d==b);
+    CHECK_FALSE(a*d==c);
+}
+
+TEST_CASE("Test 1: Przeciazenie operatora dzielenia Vector")
+{
+    Vector a,b,c;
+    double wek1[2]={4,2},wek2[2]={2,1},wek3[2]={2,0},d=3;
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a/d==b);
+    CHECK_FALSE(a/d==c);
+}
+
+TEST_CASE("Test 2: Przeciazenie operatora dzielenia Vector - dokladonsc")
+{
+    Vector a,b,c;
+    double wek1[2]={5,5},wek2[2]={1.66666666667,1.66666666667},wek3[2]={1.6666667,1.6666667},d=3;
+    a=Vector(wek1);
+    b=Vector(wek2);
+    c=Vector(wek3);
+    CHECK(a/d==b);
+    CHECK_FALSE(a/d==c);
+}
+
+TEST_CASE("Test 3: Przeciazenie operatora dzielenia Vector - dzielenie przez '0'")
+{
+    Vector a;
+    double wek[2]={4,2},b=0;
+    a=Vector(wek);
+    WARN_THROWS(a/b);
 }
 
 TEST_CASE("Test operatora []")
