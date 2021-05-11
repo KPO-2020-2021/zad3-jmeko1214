@@ -16,6 +16,7 @@
 #include "example.h"
 #include "vector.hh"
 #include "matrix.hh"
+#include "rectangle.hh"
 #include "../include/lacze_do_gnuplota.hh"
 
 /*!
@@ -41,7 +42,7 @@
  *                         rysownym przez gnuplota.
  * \retval true - gdy operacja zapisu powiodła się,
  * \retval false - w przypadku przeciwnym.
- */
+ *//*
 void PrzykladZapisuWspolrzednychDoStrumienia( std::ostream&     StrmWy, 
                                               double       Przesuniecie
                                             )
@@ -72,8 +73,7 @@ void PrzykladZapisuWspolrzednychDoStrumienia( std::ostream&     StrmWy,
                              // Jeszcze raz zapisujemy pierwszy punkt,
                              // aby gnuplot narysowal zamkniętą linię.
 }
-
-
+*/
 
 /*!
  * Przyklad zapisu wspolrzednych zbioru punktow do pliku, z ktorego
@@ -86,10 +86,9 @@ void PrzykladZapisuWspolrzednychDoStrumienia( std::ostream&     StrmWy,
  *                         rysownym przez gnuplota.
  * \retval true - gdy operacja zapisu powiodła się,
  * \retval false - w przypadku przeciwnym.
- */
+ *//*
 bool PrzykladZapisuWspolrzednychDoPliku( const char  *sNazwaPliku,
-                                         double       Przesuniecie
-                                       )
+                                         double       Przesuniecie)
 {
   std::ofstream  StrmPlikowy;
 
@@ -104,7 +103,7 @@ bool PrzykladZapisuWspolrzednychDoPliku( const char  *sNazwaPliku,
 
   StrmPlikowy.close();
   return !StrmPlikowy.fail();
-}
+}*/
 
 int main() {
   std::cout << "Project Rotation 2D based on C++ Boiler Plate v"
@@ -118,6 +117,7 @@ int main() {
             << std::endl;
   // std::system("cat ../LICENSE");
   // do zadania Rotacja 2D
+  /*
   std::cout << "Vector:" << std::endl;
   Vector tmpV1 = Vector();
   std::cout << "Vector - konstruktor bezparametryczny:\n" << tmpV1 << std::endl;
@@ -131,6 +131,7 @@ int main() {
   double argumentsM[][SIZE] = {{1.0, 2.0},{3.0, 4.0}};
   Matrix tmpM2 = Matrix(argumentsM);
   std::cout << "Matrix - konstruktor parametryczny:\n" << tmpM2 << std::endl;
+*/
 
     PzG::LaczeDoGNUPlota  Lacze;  // Ta zmienna jest potrzebna do wizualizacji
                                 // rysunku prostokata
@@ -153,7 +154,7 @@ int main() {
    //  jako wspolrzedne punktow podajemy tylko x,y.
    //
   Lacze.ZmienTrybRys(PzG::TR_2D);
-
+/*
   PrzykladZapisuWspolrzednychDoStrumienia(std::cout,0);
   if (!PrzykladZapisuWspolrzednychDoPliku("../datasets/prostokat.dat",0)) return 1;
   Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
@@ -167,10 +168,79 @@ int main() {
   Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
   std::cout << "Naciśnij ENTER, aby kontynuowac" << std::endl;
   std::cin.ignore(100000,'\n');
+*/
+  double kat;
+  int krotnosc;
+  double wektor[]={20,20};
+  Vector vector(wektor);
+  Prostokat prosty;
+  char opcja;  //zmienna dla obslugi prostego menu
+  prosty.Boki();
+  Prostokat obrot;
+  Prostokat wczytaj;
+  Prostokat zapisz;
+  obrot.Obrot(kat,krotnosc);
 
-  // Z bazy projektu-wydmuszki Boiler Plate C++:
-  // Bring in the dummy class from the example source,
-  // just to show that it is accessible from main.cpp.
+  //wyswietlenie prostego menu
+  std::cout<<" o - obrot prostokata o zadany kat"<<std::endl;
+  std::cout<<" p - przesuniecie prostokata o zadany wektor"<<std::endl;
+  std::cout<<" w - wyswietlanie wspolrzednych wierzcholkow"<<std::endl;
+  std::cout<<" m - wyswietl menu"<<std::endl;
+  std::cout<<" k - koniec dzialania programu"<<std::endl;
+
+  while(opcja!='k')
+  {
+    if(!wczytaj.Wczytaj_z_pliku("../datasets/prostokat.dat",prosty))
+    {
+      return 1;
+    }
+    Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
+    std::cout<<std::endl;
+    std::cout<<" Twoj wybor? (m - menu) > ";
+    std::cin>>opcja;
+
+    switch(opcja)   //obsluga prostego menu
+    {
+      case 'o':
+      {
+        std::cout<<" Podaj wartosc kata obrotu w stopniach"<<std::endl;
+        std::cin>>kat;
+        std::cout<<" Ile razy operacja obrotu ma byc powtorzona?"<<std::endl;
+        std::cin>>krotnosc;
+        obrot.Obrot(kat,krotnosc);
+        break;
+      }
+      case 'p':
+      {
+        std::cout<<" Wprowadz wspolrzedne wektora translacji w postaci dwoch liczb"<<std::endl;
+        std::cout<<" tzn. wspolrzednej x oraz wsporzednej y."<<std::endl;
+        std::cin>>vector;
+        prosty.Przesuniecie(vector);
+        break;
+      }
+      case 'w':
+      {
+        std::cout<<prosty;
+        break;
+      }
+      case 'm':
+      {
+        std::cout<<" o - obrot prostokata o zadany kat"<<std::endl;
+        std::cout<<" p - przesuniecie prostokata o zadany wektor"<<std::endl;
+        std::cout<<" w - wyswietlanie wspolrzednych wierzcholkow"<<std::endl;
+        std::cout<<" m - wyswietl menu"<<std::endl;
+        std::cout<<" k - koniec dzialania programu"<<std::endl;
+        break;
+      }
+      default:
+      {
+        std::cerr<<" Blad! Nie rozpoznano opcji menu. Sprobuj jeszcze raz."<<std::endl;
+        break;
+      }
+    }
+  }       
+  std::cout<<"/n Koniec dzialania programu/n"<<std::endl;
+
   Dummy d = Dummy();
   return d.doSomething() ? 0 : -1;
 }

@@ -23,7 +23,7 @@ public:
     const double &operator [] (int index) const;
     double &operator [] (int index);
 
-    bool operator == (const Vector &wek) const;
+    bool operator == (const Vector wek) const;
     bool operator != (const Vector &wek) const;
 };
 std::ostream &operator << (std::ostream &out, Vector const &tmp);
@@ -36,7 +36,7 @@ std::istream &operator >> (std::istream &in, Vector &tmp);
  |  Zwraca:                                                                   |
  |      Wartość True lub False.                                               |
  */
-bool operator == (const Vector &wek) const
+bool Vector::operator == (const Vector wek)const
 {
     if(abs(size[0]-wek[0])<=MIN_DIFF && abs(size[1]-wek[1])<=MIN_DIFF)
     {
@@ -55,9 +55,9 @@ bool operator == (const Vector &wek) const
  |  Zwraca:                                                                   |
  |      Wartość True lub False.                                               |
  */
-bool operator != (const Vector &wek) const
+bool Vector::operator != (const Vector &wek) const
 {
-    if(Vector == wek)
+    if(*this == wek)
     {
         return false;
     }
@@ -66,7 +66,6 @@ bool operator != (const Vector &wek) const
         return true;
     }
 }
-
 
 /******************************************************************************
  |  Konstruktor klasy Vector.                                                 |
@@ -164,7 +163,7 @@ Vector Vector::operator / (const double &tmp) {
     Vector result;
     if(tmp==0)
     {
-        std::cerr<<"Blad! Nie mozna dzielic przez zero!"<<endl;
+        std::cerr<<"Blad! Nie mozna dzielic przez zero!"<<std::endl;
     }
     else
     {

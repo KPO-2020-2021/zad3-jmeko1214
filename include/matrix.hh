@@ -165,38 +165,35 @@ Matrix Matrix::operator + (Matrix tmp) {
 /******************************************************************************
  |  Przeciazenie operatora porowanania ==.                                    |
  |  Argumenty:                                                                |
- |      Vektor i wskaźnik na wektor.                                          |
+ |      Macierz i wskaźnik na Macierz.                                        |
  |  Zwraca:                                                                   |
  |      Wartość True lub False.                                               |
  */
-bool operator == (const Matrix &matrix) const
+bool Matrix::operator == (const Matrix &matrix) const
 {
     for(int i=0; i<SIZE; i++)
     {
         for(int j=0; j<SIZE; j++)
         {
-            if(this->value[i][j] == matrix.value[i][j])
-            {
-                return true;
-            }
-            else
+            if(this->value[i][j] != matrix.value[i][j])
             {
                 return false;
             }
         }
     }
+    return true;
 }
 
 /******************************************************************************
  |  Przeciazenie operatora porowanania !=.                                    |
  |  Argumenty:                                                                |
- |      Vektor i wskaźnik na wektor.                                          |
+ |      Macierz i wskaźnik na Macierz.                                        |
  |  Zwraca:                                                                   |
  |      Wartość True lub False.                                               |
  */
-bool operator != (const Matrix &matrix) const
+bool Matrix::operator != (const Matrix &matrix) const
 {
-    if(Matrix == matrix)
+    if(*this == matrix)
     {
         return false;
     }
