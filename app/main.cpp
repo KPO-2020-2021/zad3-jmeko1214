@@ -26,8 +26,8 @@
  * EDIT: dodane kreowanie wektorow i macierzy plus obsluga lacza do gnuplota
  */
 
-#define DL_KROTKI_BOK  100
-#define DL_DLUGI_BOK   150
+//#define DL_KROTKI_BOK  100
+//#define DL_DLUGI_BOK   150
 
 /*!
  * Przyklad zapisu wspolrzednych zbioru punktow do strumienia wyjściowego.
@@ -171,15 +171,16 @@ int main() {
 */
   double kat;
   int krotnosc;
-  double wektor[]={20,20};
-  Vector vector(wektor);
+  //double wektor[]={20,20};
+  //Vector vector(wektor);
+  Vector wektor;
   Prostokat prosty;
   char opcja;  //zmienna dla obslugi prostego menu
-  prosty.Boki();
-  Prostokat obrot;
-  Prostokat wczytaj;
-  Prostokat zapisz;
-  obrot.Obrot(kat,krotnosc);
+  //prosty.Boki();
+  //Prostokat obrot;
+  //Prostokat wczytaj;
+  //Prostokat zapisz;
+  //obrot.Obrot(kat,krotnosc);
 
   //wyswietlenie prostego menu
   std::cout<<" o - obrot prostokata o zadany kat"<<std::endl;
@@ -190,10 +191,12 @@ int main() {
 
   while(opcja!='k')
   {
-    if(!wczytaj.Wczytaj_z_pliku("../datasets/prostokat.dat",prosty))
+    if(!prosty.Wczytaj_z_pliku("../datasets/prostokat.dat"))
     {
+      std::cerr<<"Blad! Nie udalo sie wczytac pliku ze wspolrzednymi prostokota!"<<std::endl;
       return 1;
     }
+    prosty.Boki();
     Lacze.Rysuj(); // <- Tutaj gnuplot rysuje, to co zapisaliśmy do pliku
     std::cout<<std::endl;
     std::cout<<" Twoj wybor? (m - menu) > ";
@@ -207,20 +210,25 @@ int main() {
         std::cin>>kat;
         std::cout<<" Ile razy operacja obrotu ma byc powtorzona?"<<std::endl;
         std::cin>>krotnosc;
-        obrot.Obrot(kat,krotnosc);
+        prosty.Obrot(kat,krotnosc);
+        prosty.Zapisz_do_pliku("../datasets/prostokat.dat");
+        Lacze.Rysuj();
+        prosty.Boki();
         break;
       }
       case 'p':
       {
         std::cout<<" Wprowadz wspolrzedne wektora translacji w postaci dwoch liczb"<<std::endl;
         std::cout<<" tzn. wspolrzednej x oraz wsporzednej y."<<std::endl;
-        std::cin>>vector;
-        prosty.Przesuniecie(vector);
+        std::cin>>wektor;
+        prosty.Przesuniecie(wektor);
+        prosty.Zapisz_do_pliku("../datasets/prostokat.dat");
+        Lacze.Rysuj();
         break;
       }
       case 'w':
       {
-        std::cout<<prosty;
+        std::cout<<prosty<<std::endl;
         break;
       }
       case 'm':

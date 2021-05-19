@@ -5,6 +5,7 @@
 #include "size.hh"
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 
 class Vector {
 
@@ -15,15 +16,18 @@ public:
     Vector();
     Vector(double [SIZE]);
 
-    Vector operator + (const Vector &v);
-    Vector operator - (const Vector &v);
+    double modul() const;       //metoda liczy dlugosc wektora
+
+    //przeciazenia operatorow
+    Vector operator + (const Vector &v) const;
+    Vector operator - (const Vector &v) const;
     Vector operator * (const double &tmp);
     Vector operator / (const double &tmp);
 
     const double &operator [] (int index) const;
     double &operator [] (int index);
 
-    bool operator == (const Vector wek) const;
+    bool operator == (const Vector &wek) const;
     bool operator != (const Vector &wek) const;
 };
 std::ostream &operator << (std::ostream &out, Vector const &tmp);
@@ -36,7 +40,7 @@ std::istream &operator >> (std::istream &in, Vector &tmp);
  |  Zwraca:                                                                   |
  |      Wartość True lub False.                                               |
  */
-bool Vector::operator == (const Vector wek)const
+bool Vector::operator == (const Vector &wek) const
 {
     if(abs(size[0]-wek[0])<=MIN_DIFF && abs(size[1]-wek[1])<=MIN_DIFF)
     {
@@ -88,13 +92,30 @@ Vector::Vector() {
  |  Zwraca:                                                                   |
  |      Tablice wypelniona wartosciami podanymi w argumencie.                 |
  */
-
 Vector::Vector(double tmp[SIZE]) {
     for (int i = 0; i < SIZE; ++i) {
         size[i] = tmp[i];
     }
 }
 
+/******************************************************************************
+ |  Metoda klasy Vector.                                                      |
+ |  Argumenty:                                                                |
+ |     tmp - zmienna pomocnicza do liczenia modulu                            |
+ |  Zwraca:                                                                   |
+ |     mod - wartosc modulu                                                   |
+ */
+double Vector::modul() const
+{
+    double tmp=0;
+    double mod=0;
+    for(int i=0; i<SIZE; i++)
+    {
+        tmp = tmp + pow(size[i], 2);
+    }
+    mod = sqrt(tmp);
+    return mod;
+}
 
 /******************************************************************************
  |  Realizuje dodawanie dwoch wektorow.                                       |
@@ -105,10 +126,10 @@ Vector::Vector(double tmp[SIZE]) {
  |      Sume dwoch skladnikow przekazanych jako wskaznik                      |
  |      na parametr.                                                          |
  */
-Vector Vector::operator + (const Vector &v) {
+Vector Vector::operator + (const Vector &v) const {
     Vector result;
     for (int i = 0; i < SIZE; ++i) {
-        result[i] = size[i] += v[i];
+        result[i] = this->size[i] + v[i];
     }
     return result;
 }
@@ -123,10 +144,10 @@ Vector Vector::operator + (const Vector &v) {
  |      Roznice dwoch skladnikow przekazanych jako wskaznik                   |
  |      na parametr.                                                          |
  */
-Vector Vector::operator - (const Vector &v) {
+Vector Vector::operator - (const Vector &v) const {
     Vector result;
     for (int i = 0; i < SIZE; ++i) {
-        result[i] = size[i] -= v[i];
+        result[i] = this->size[i] - v[i];
     }
     return result;
 }
@@ -210,8 +231,9 @@ double &Vector::operator[](int index) {
  |      tmp - wektor.                                                         |
  */
 std::ostream &operator << (std::ostream &out, Vector const &tmp) {
-    for (int i = 0; i < SIZE; ++i) {
-        out << "[ " << tmp[i] << " ]\n";
+    for (int i = 0; i < SIZE; ++i) 
+    {
+        out <<"\t"<<std::setprecision(10)<<std::fixed<< tmp[i] << "\t";
     }
     return out;
 }
@@ -224,9 +246,11 @@ std::ostream &operator << (std::ostream &out, Vector const &tmp) {
  |      tmp - wektor.                                                         |
  */
 std::istream &operator >> (std::istream &in, Vector &tmp) {
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < SIZE; ++i) 
+    {
         in >> tmp[i];
     }
     std::cout << std::endl;
     return in;
 }
+
