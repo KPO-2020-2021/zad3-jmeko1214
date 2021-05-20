@@ -163,7 +163,7 @@ void Prostokat::Boki() const           //sprawdzenie dlugosci bokow
         }
         //wyswietlenie dlugosci bokow krotszych
         std::cout<<"  Dlugosc pierwszego boku: "<<std::fixed<<std::setprecision(10)<<dlugosc[1]<<std::endl;
-        std::cout<<"    Dlugosc drugiego boku: "<<std::fixed<<std::setprecision(10)<<dlugosc[3]<<std::endl<<std::endl;
+        std::cout<<"    Dlugosc drugiego boku: "<<std::fixed<<std::setprecision(10)<<dlugosc[3]<<std::endl;
     }
     else
     {
@@ -192,7 +192,7 @@ void Prostokat::Boki() const           //sprawdzenie dlugosci bokow
         }
         //wyswietlenie dlugosci bokow krotszych
         std::cout<<"  Dlugosc pierwszego boku: "<<std::fixed<<std::setprecision(10)<<dlugosc[0]<<std::endl;
-        std::cout<<"    Dlugosc drugiego boku: "<<std::fixed<<std::setprecision(10)<<dlugosc[2]<<std::endl<<std::endl;
+        std::cout<<"    Dlugosc drugiego boku: "<<std::fixed<<std::setprecision(10)<<dlugosc[2]<<std::endl;
    }
 }
 
