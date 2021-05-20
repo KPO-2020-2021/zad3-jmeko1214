@@ -32,7 +32,13 @@ public:
 std::ostream & operator << (std::ostream &strm, const Prostokat &prosty);      //wyswietla wspolrzedne wierzcholkow  
 
 
-
+/******************************************************************************
+ |  Metoda klasy Prostokat.                                                   |
+ |  Argumenty:                                                                |
+ |     kat - zmienna przechowujaca wartosc kata w stopniach                   |
+ |  Zwraca:                                                                   |
+ |     obrot o zadany kat                                                     |
+ */
 bool Prostokat::Obrot(double &kat)
 {
     double obrot;
@@ -40,6 +46,14 @@ bool Prostokat::Obrot(double &kat)
     return obrot;
 }
 
+/******************************************************************************
+ |  Metoda klasy Prostokat.                                                   |
+ |  Argumenty:                                                                |
+ |     kat - zmienna przechowujaca wartosc kata w stopniach                   |
+ |     krotnosc - zmienna przechowujaca liczbe obrotow o zadany kat           |
+ |  Zwraca:                                                                   |
+ |     Wartosc True                                                           |
+ */
 bool Prostokat::Obrot(double &kat, int krotnosc)  //krotnosc > ile razy powtorzyc obrot o dany kat
 {
     Matrix macierz_obrot; //macierz obrotu
@@ -54,6 +68,13 @@ bool Prostokat::Obrot(double &kat, int krotnosc)  //krotnosc > ile razy powtorzy
     return true;
 }
 
+/******************************************************************************
+ |  Realizuje przesuniecie wierzcholkow prostokata o zadany wektor            |                                               
+ |  Argumenty:                                                                |
+ |     wektor - przechowuje wspolrzedne wektora przesuniecia                  |
+ |  Zwraca:                                                                   |
+ |     True lub False                                                         |
+ */
 bool Prostokat::Przesuniecie(const Vector &wektor)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 {
     if(wektor[0]==0 || wektor[1]==0)
@@ -70,7 +91,14 @@ bool Prostokat::Przesuniecie(const Vector &wektor)
     return true;
 }
 
-bool Prostokat::Wczytaj_z_pliku(const std::string &NazwaPliku)//,Prostokat prosty) 
+/******************************************************************************
+ |  Realizuje wczytanie wspolrzednych prostokata z pliku                      |                                               
+ |  Argumenty:                                                                |
+ |     NazwaPliku - przechowuje nazwe pliku                                   |
+ |  Zwraca:                                                                   |
+ |     True lub False                                                         |
+ */
+bool Prostokat::Wczytaj_z_pliku(const std::string &NazwaPliku) 
 {
     std::fstream plik;
     Vector PowtorzonyPunkt;    //ostatni wierzcholek prostokata, powtorzony dla zamkniecia rysowania
@@ -105,7 +133,14 @@ bool Prostokat::Wczytaj_z_pliku(const std::string &NazwaPliku)//,Prostokat prost
     return true;
 }
 
-bool Prostokat::Zapisz_do_pliku(const std::string &NazwaPliku)//, Prostokat prosty)
+/******************************************************************************
+ |  Realizuje zapis wspolrzednych prostokata do pliku                         |                                               
+ |  Argumenty:                                                                |
+ |     NazwaPliku - przechowuje nazwe pliku                                   |
+ |  Zwraca:                                                                   |
+ |     True lub False                                                         |
+ */
+bool Prostokat::Zapisz_do_pliku(const std::string &NazwaPliku)
 {
     std::fstream plik;
     plik.open(NazwaPliku, std::fstream::out);
@@ -127,6 +162,13 @@ bool Prostokat::Zapisz_do_pliku(const std::string &NazwaPliku)//, Prostokat pros
     }
 }
 
+/******************************************************************************
+ |  Realizuje porownanie dlugosci przeciwleglych bokow prostokata             |                                               
+ |  Argumenty:                                                                |
+ |     brak                                                                   |
+ |  Zwraca:                                                                   |
+ |     Informacje o dlugosci bokow oraz czy sa rowne                          |
+ */
 void Prostokat::Boki() const           //sprawdzenie dlugosci bokow
 {
     double dlugosc[WIERZCHOLKI];   //przechowuje dlugosci bokow
@@ -196,6 +238,13 @@ void Prostokat::Boki() const           //sprawdzenie dlugosci bokow
    }
 }
 
+/******************************************************************************
+ |  Przeciazenie operatora porownania ==                                      |                                               
+ |  Argumenty:                                                                |
+ |     prosty - zmienna pomocnicza do operacji na prostokacie                 |
+ |  Zwraca:                                                                   |
+ |     True lub False                                                         |
+ */
 bool Prostokat::operator == (const Prostokat &prosty) const
 {
     for(int i=0; i<WIERZCHOLKI; i++)
@@ -212,6 +261,13 @@ bool Prostokat::operator == (const Prostokat &prosty) const
     return true;
 }
 
+/******************************************************************************
+ |  Przeciazenie operatora porownania =!                                      |                                               
+ |  Argumenty:                                                                |
+ |     prosty - zmienna pomocnicza do operacji na prostokacie                 |
+ |  Zwraca:                                                                   |
+ |     True lub False                                                         |
+ */
 bool Prostokat::operator != (const Prostokat &prosty) const
 {
     for(int i=0; i<WIERZCHOLKI; i++)
@@ -228,6 +284,14 @@ bool Prostokat::operator != (const Prostokat &prosty) const
     return true;
 }
 
+/******************************************************************************
+ |  Przeciazenie operatora <<                                                 |                                               
+ |  Argumenty:                                                                |
+ |     strm - strumien wyjsciowy                                              |
+ |     prosty - zmienna pomocnicza do operacji na prostokacie                 |
+ |  Zwraca:                                                                   |
+ |     Strumien wyjsciowy                                                     |
+ */
 std::ostream & operator << (std::ostream &strm, const Prostokat &prosty)
 {
     for(int i=0; i<WIERZCHOLKI; i++)
@@ -237,6 +301,13 @@ std::ostream & operator << (std::ostream &strm, const Prostokat &prosty)
     return strm;
 }
 
+/******************************************************************************
+ |  Przeciazenie operatora indeksowania, do odczytu i zapisu wsp. wierzch.    |                  
+ |  Argumenty:                                                                |
+ |     index - zmienna przechowuje indeks wierzcholka                         |
+ |  Zwraca:                                                                   |
+ |     Indeks wierzcholka prostokota                                          |
+ */
 Vector & Prostokat::operator [] (int index)
 {
     return wierzcholek[index];

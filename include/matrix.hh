@@ -145,12 +145,12 @@ const double &Matrix::operator () (unsigned int row, unsigned int column) const 
 }
 
 /******************************************************************************
- |  Przeciążenie dodawania macierzy                                                          |
+ |  Przeciążenie dodawania macierzy                                           |
  |  Argumenty:                                                                |
- |      this - macierz, czyli pierwszy skladnik dodawania,                     |
- |      v - wektor, czyli drugi skladnik dodawania.                                               |
+ |      this - macierz, czyli pierwszy skladnik dodawania,                    |
+ |      v - wektor, czyli drugi skladnik dodawania.                           |
  |  Zwraca:                                                                   |
- |      Macierz - iloczyn dwóch podanych macierzy.                  |
+ |      Macierz - iloczyn dwóch podanych macierzy.                            |
  */
 Matrix Matrix::operator + (Matrix tmp) {
     Matrix result;

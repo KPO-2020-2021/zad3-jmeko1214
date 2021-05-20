@@ -6,8 +6,8 @@
 TEST_CASE("Test konstruktora bezparametrycznego")
 {
     Vector a;
-    CHECK(a[0]==1);
-    CHECK(a[1]==1);
+    CHECK(a[0]==0);
+    CHECK(a[1]==0);
 }
 
 TEST_CASE("Test konstruktora z parametrem")
@@ -48,8 +48,8 @@ TEST_CASE("Test 1. Przeciazenie operatora porownania '!=' ")
     a=Vector(wek1);
     b=Vector(wek2);
     c=Vector(wek3);
-    CHECK(a==c);
-    CHECK_FALSE(a==b);
+    CHECK(a!=c);
+    CHECK_FALSE(a!=b);
 }
 
 TEST_CASE("Test 2. Przeciazenie operatora porownania '!=' ")
@@ -59,8 +59,8 @@ TEST_CASE("Test 2. Przeciazenie operatora porownania '!=' ")
     a=Vector(wek1);
     b=Vector(wek2);
     c=Vector(wek3);
-    CHECK(a==c);
-    CHECK_FALSE(a==b);
+    CHECK(a!=c);
+    CHECK_FALSE(a!=b);
 }
 
 TEST_CASE("Test 1: Przeciazenie operatora dodawania")
@@ -142,7 +142,7 @@ TEST_CASE("Test 1: Przeciazenie operatora dzielenia Vector")
     b=Vector(wek2);
     c=Vector(wek3);
     CHECK(a/d==b);
-    CHECK_FALSE(a/d==c);
+    CHECK_FALSE(a/d!=c);
 }
 
 TEST_CASE("Test 2: Przeciazenie operatora dzielenia Vector - dokladonsc")
@@ -153,7 +153,7 @@ TEST_CASE("Test 2: Przeciazenie operatora dzielenia Vector - dokladonsc")
     b=Vector(wek2);
     c=Vector(wek3);
     CHECK(a/d==b);
-    CHECK_FALSE(a/d==c);
+    CHECK_FALSE(a/d!=c);
 }
 
 TEST_CASE("Test 3: Przeciazenie operatora dzielenia Vector - dzielenie przez '0'")
